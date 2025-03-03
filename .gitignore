@@ -1,0 +1,9 @@
+# Thư mục cấu hình của PyCharm
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Virtualenv
+venv/
+env/
