@@ -7,6 +7,12 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import random
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+base_folder = Path(__file__).parent.parent.absolute()  #  xác định đường dẫn thư mục gốc
+load_dotenv(os.path.join(str(base_folder), ".env"))  # Đọc file .env và dùng trong project
 
 BOT_NAME = "mst"
 
@@ -114,4 +120,8 @@ HTTP_PROXY_LIST = [
     "http://user:password@proxy3.com:8000",
 ]
 
-
+INPUT_FILE = os.getenv('INPUT_FILE')
+OUTPUT_DIR = os.getenv('OUTPUT_DIR')
+OUTPUT_FILES = os.getenv('OUTPUT_FILES')
+BATCH_SIZE = os.getenv('BATCH_SIZE')
+NUM_THREADS = os.getenv('NUM_THREADS')

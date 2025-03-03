@@ -3,13 +3,7 @@ import threading
 import pandas as pd
 import os
 import logging
-
-# Cấu hình
-INPUT_FILE = "data/masothue_backfill_202501201319_6.csv"
-OUTPUT_DIR = "output/"
-OUTPUT_FILES = [f"{OUTPUT_DIR}/output_{i+1}.csv" for i in range(6)]
-BATCH_SIZE = 1000
-NUM_THREADS = 6  # Chỉ sử dụng 6 luồng để không bị ghi đè file
+from settings import INPUT_FILE, OUTPUT_DIR, OUTPUT_FILES, BATCH_SIZE, NUM_THREADS
 
 # Tạo thư mục output nếu chưa có
 os.makedirs(OUTPUT_DIR, exist_ok=True)
