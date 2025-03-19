@@ -10,27 +10,27 @@
  mst/
 ├── data/  
 │   └── masothue_backfill_202501201...  # data  
-├── mst/
-│   ├── spiders/                        # Spider files for scraping
-│        ├── __init__.py
-│        ├──  mst.py
-│   ├── __init__.py
-│   ├── control.py
-│   ├── items.py
-│   ├── middlewares.py
-│   ├── pipelines.py
-│   └── settings.py
-├── output/
-│   └── mst_output.csv                  # Output data file
-├── .env                                # Environment variables
-├── scrapy.cfg                          # Scrapy configuration
-├── .gitignore                          # Git ignore file
-└── requirements.txt                    # Project dependencies
+├── mst/  
+│   ├── spiders/                        # Spider files for scraping  
+│        ├── __init__.py  
+│        ├──  mst.py  
+│   ├── __init__.py  
+│   ├── control.py  
+│   ├── items.py  
+│   ├── middlewares.py  
+│   ├── pipelines.py  
+│   └── settings.py  
+├── output/  
+│   └── mst_output.csv                  # Output data file  
+├── .env                                # Environment variables  
+├── scrapy.cfg                          # Scrapy configuration  
+├── .gitignore                          # Git ignore file  
+└── requirements.txt                    # Project dependencies  
 ***
 # Yêu cầu
-Python 3.1 trở lên
-Git (để quản lý mã nguồn)
-Kiến thức cơ bản về Python và Scrapy
+Python 3.1 trở lên  
+Git (để quản lý mã nguồn)  
+Kiến thức cơ bản về Python và Scrapy  
 ***
 # Cài đặt
 ## Clone repository
