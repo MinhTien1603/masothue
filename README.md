@@ -6,27 +6,6 @@
  ### Công cụ sử dụng: Scrapy 
  ### Kết quả: Dữ liệu được lưu vào thư mục output/ dưới dạng mst_output.csv
 ***
- ## Cấu trúc thư mục
- mst/   
-├── data/  
-│   └── masothue_backfill_202501201...  # data  
-├── mst/  
-│   ├── spiders/                        # Spider files for scraping  
-│        ├── __init__.py  
-│        ├──  mst.py  
-│   ├── __init__.py  
-│   ├── control.py  
-│   ├── items.py  
-│   ├── middlewares.py  
-│   ├── pipelines.py  
-│   └── settings.py  
-├── output/  
-│   └── mst_output.csv                  # Output data file  
-├── .env                                # Environment variables  
-├── scrapy.cfg                          # Scrapy configuration  
-├── .gitignore                          # Git ignore file  
-└── requirements.txt                    # Project dependencies  
-***
 # Yêu cầu
 Python 3.1 trở lên  
 Git (để quản lý mã nguồn)  
@@ -42,11 +21,14 @@ Kiến thức cơ bản về Python và Scrapy
     source venv/bin/activate  # Trên Windows: venv\Scripts\activate
     pip install -r requirements.txt'''
 
-## Cấu hình biến môi trường
-Chỉnh sửa file .env nếu cần:
+# Cách sử dụng
+## Chạy spider
+    scrapy crawl mst
+## Kiểm tra kết quả
+Sau khi chạy xong, mở output/mst_output.csv để xem dữ liệu đã thu thập.
+## Tuỳ chỉnh cài đặt
+Chỉnh sửa mst/settings.py để thay đổi tốc độ crawl, user-agent, delay, v.v.  
+Chỉnh sửa .env để thay đổi đường dẫn tệp đầu vào (INPUT_FILE), thư mục đầu ra (OUTPUT_DIR), kích thước lô xử lý (BATCH_SIZE), và số luồng (NUM_THREADS).  
 
-    INPUT_FILE=data/masothue_backfill_202501201319_6.csv  
-    OUTPUT_DIR=output/
-    BATCH_SIZE=1000  
-    NUM_THREADS=6 
-
+# Liên hệ
+Nếu có thắc mắc, vui lòng mở issue trên GitHub repository hoặc liên hệ qua email 23521579@gm.uit.edu.vn
