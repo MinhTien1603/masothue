@@ -7,7 +7,7 @@
  ### Kết quả: Dữ liệu được lưu vào thư mục output/ dưới dạng mst_output.csv
 ***
  ## Cấu trúc thư mục
- mst/
+ mst/   
 ├── data/  
 │   └── masothue_backfill_202501201...  # data  
 ├── mst/  
@@ -34,21 +34,18 @@ Kiến thức cơ bản về Python và Scrapy
 ***
 # Cài đặt
 ## Clone repository
-
-'''git clone https://github.com/MinhTien1603/masothue.git
-   cd masothue '''
+ git clone https://github.com/MinhTien1603/masothue.git
+ cd masothue '''
 
 ## Cài đặt thư viện cần thiết
-
-''' python -m venv venv
-    source venv/bin/activate  # Trên Windows: venv\Scripts\activate
-    pip install -r requirements.txt'''
+ python -m venv venv
+ source venv/bin/activate  # Trên Windows: venv\Scripts\activate
+ pip install -r requirements.txt'''
 
 ## Cấu hình biến môi trường
 Chỉnh sửa file .env nếu cần:
-'''
-INPUT_FILE=data/masothue_backfill_202501201319_6.csv  
-OUTPUT_DIR=output/
-BATCH_SIZE=1000  
-NUM_THREADS=6 
-'''
+ INPUT_FILE=data/masothue_backfill_202501201319_6.csv  
+ OUTPUT_DIR=output/
+ BATCH_SIZE=1000  
+ NUM_THREADS=6 
+
