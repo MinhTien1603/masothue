@@ -19,7 +19,7 @@ Kiến thức cơ bản về Python và Scrapy
 ## Cài đặt thư viện cần thiết
     python -m venv venv
     source venv/bin/activate  # Trên Windows: venv\Scripts\activate
-    pip install -r requirements.txt'''
+    pip install -r requirements.txt
 
 # Cách sử dụng
 ## Chạy spider
