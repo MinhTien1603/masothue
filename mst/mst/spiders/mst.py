@@ -1,38 +1,58 @@
 import scrapy
 import pandas as pd
 from datetime import datetime
+from mst.settings import INPUT_FILE, VALID_URL_PREFIXES
 from mst.items import MstItem
 
+
 class MstSpider(scrapy.Spider):
+    """Spider để crawl dữ liệu công ty từ các URL MST."""
+
     name = "mst"
 
     def start_requests(self):
+        """Tạo các yêu cầu ban đầu từ danh sách URL trong file CSV."""
         try:
-            df = pd.read_csv("data/masothue_backfill_202501201319_6.csv")  # Đọc danh sách URL từ CSV
-            for _, row in df.iterrows():
+            dataframe = pd.read_csv(INPUT_FILE)
+            for _, row in dataframe.iterrows():
                 url = row["mst_url"]
-                if isinstance(url, str) and url.startswith(('http://', 'https://')):
-                    yield scrapy.Request(url=url.strip(), callback=self.parse, meta={"mst_taxid": row["mst_taxid"]})
+                if (isinstance(url, str) and
+                        any(url.startswith(prefix) for prefix in VALID_URL_PREFIXES)):
+                    yield scrapy.Request(
+                        url=url.strip(),
+                        callback=self.parse,
+                        meta={"mst_taxid": row["mst_taxid"]}
+                    )
                 else:
-                    self.logger.error(f"Lỗi định dạng URL: {url}")
-        except Exception as e:
-            self.logger.error(f"Lỗi đọc file CSV: {e}")
+                    self.logger.error("Định dạng URL không hợp lệ: %s", url)
+        except Exception as error:
+            self.logger.error("Lỗi khi đọc file CSV: %s", error)
 
     def parse(self, response):
+        """Phân tích dữ liệu công ty từ phản hồi và trả về MstItem."""
         item = MstItem()
 
+        # Thông tin cơ bản của công ty
         item["mst_taxid"] = response.meta["mst_taxid"]
         item["mst_company_name"] = response.css('th[itemprop="name"] span::text').get(default="").strip()
-        item["mst_company_name_in_short"] = response.xpath('//tr[td[contains(text(), "Tên viết tắt")]]/td/span/text()').get(default="").strip()
-        item["mst_forg_orgname"] = response.xpath('//tr[td[contains(text(), "Tên quốc tế")]]/td/span/text()').get(default="").strip()
+        item["mst_company_name_in_short"] = response.xpath(
+            '//tr[td[contains(text(), "Tên viết tắt")]]/td/span/text()').get(default="").strip()
+        item["mst_forg_orgname"] = response.xpath('//tr[td[contains(text(), "Tên quốc tế")]]/td/span/text()').get(
+            default="").strip()
         item["mst_address"] = response.css('td[itemprop="address"] span::text').get(default="").strip()
-        item["mst_representative"] = response.xpath('//tr[td[contains(text(), "Người đại diện")]]/td/span/a/text()').get(default="").strip()
+        item["mst_representative"] = response.xpath(
+            '//tr[td[contains(text(), "Người đại diện")]]/td/span/a/text()').get(default="").strip()
         item["mst_phone_number"] = response.css('td[itemprop="telephone"] span::text').get(default="").strip()
-        item["mst_active_date"] = response.xpath('//tr[td[contains(text(), "Ngày hoạt động")]]/td/span/text()').get(default="").strip()
-        item["mst_managed_by"] = response.xpath('//tr[td[contains(text(), "Quản lý bởi")]]/td/span/text()').get(default="").strip()
-        item["mst_company_type"] = response.xpath('//tr[td[contains(text(), "Loại hình DN")]]/td/a/text()').get(default="").strip()
-        item["mst_status"] = response.xpath('//tr[td[contains(text(), "Tình trạng")]]/td/a/text()').get(default="").strip()
-        item["mst_last_updated"] = response.xpath('//tr[td[contains(text(), "Cập nhật mã số thuế")]]//em/text()').get(default="").strip()
+        item["mst_active_date"] = response.xpath('//tr[td[contains(text(), "Ngày hoạt động")]]/td/span/text()').get(
+            default="").strip()
+        item["mst_managed_by"] = response.xpath('//tr[td[contains(text(), "Quản lý bởi")]]/td/span/text()').get(
+            default="").strip()
+        item["mst_company_type"] = response.xpath('//tr[td[contains(text(), "Loại hình DN")]]/td/a/text()').get(
+            default="").strip()
+        item["mst_status"] = response.xpath('//tr[td[contains(text(), "Tình trạng")]]/td/a/text()').get(
+            default="").strip()
+        item["mst_last_updated"] = response.xpath('//tr[td[contains(text(), "Cập nhật mã số thuế")]]//em/text()').get(
+            default="").strip()
         item["mst_url"] = response.url
         item["mst_timestamp"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -52,6 +72,6 @@ class MstSpider(scrapy.Spider):
 
         # Lưu vào item
         item["mst_main_business_code"] = mst_main_business_code  # Mã ngành chính
-        item["mst_business_type"] = ", ".join(all_business_code)  # Danh sách mã ngành phụ (không trùng ngành chính)
+        item["mst_business_type"] = ", ".join(all_business_code)  # Danh sách mã ngành phụ
 
         yield item

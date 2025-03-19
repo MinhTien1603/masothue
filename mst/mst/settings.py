@@ -120,8 +120,12 @@ HTTP_PROXY_LIST = [
     "http://user:password@proxy3.com:8000",
 ]
 
+VALID_URL_PREFIXES = os.getenv('VALID_URL_PREFIXES')
 INPUT_FILE = os.getenv('INPUT_FILE')
 OUTPUT_DIR = os.getenv('OUTPUT_DIR')
 OUTPUT_FILES = os.getenv('OUTPUT_FILES')
 BATCH_SIZE = os.getenv('BATCH_SIZE')
 NUM_THREADS = os.getenv('NUM_THREADS')
+
+
+
