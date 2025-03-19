@@ -2,9 +2,9 @@
  Đây là một dự án thu thập dữ liệu mã số thuế từ danh sách đường dẫn công ty trong một tệp CSV bằng Python.
 ***
  ## Mô tả
- ### Mục đích: Tự động thu thập mã số thuế từ các trang web của công ty và lưu kết quả vào CSV
- ### Công cụ sử dụng: Scrapy 
- ### Kết quả: Dữ liệu được lưu vào thư mục output/ dưới dạng mst_output.csv
+ Mục đích: Tự động thu thập mã số thuế từ các trang web của công ty và lưu kết quả vào CSV  
+ Công cụ sử dụng: Scrapy  
+ Kết quả: Dữ liệu được lưu vào thư mục output/ dưới dạng mst_output.csv  
 ***
 # Yêu cầu
 Python 3.1 trở lên  
